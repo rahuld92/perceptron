@@ -20,11 +20,21 @@ def plot_data(_data, _weights):
     plt.legend()
 
     w = _weights.tolist()[0]
-    x1 = [x1 for x1 in range(4, 8)]
-    print(x1)
-    x2 = [(w[0] + w[1] * i) / (-w[2]) for i in x1]
-    print(x2)
-    plt.plot(x1, x2)
+
+    # x1 = [x1 for x1 in range(4, 8)]
+    # print(x1)
+    # x2 = [(w[0] + w[1] * i) / (-w[2]) for i in x1]
+    # print(x2)
+    # plt.plot(x1, x2)
+
+     # Here i am calculating slope and intercept with given three weights
+    for i in np.linspace(np.amin(_data[:,:1]),np.amax(_data[:,:1])):
+        slope = -(w[0]/w[2])/(w[0]/w[1])  
+        intercept = -w[0]/w[2]
+
+        #y =mx+c, m is slope and c is intercept
+        y = (slope*i) + intercept
+        plt.plot(i, y, 'ko')
 
     plt.show()
 
