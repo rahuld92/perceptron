@@ -53,9 +53,9 @@ def plot_data(_data, _weights):
 
     w = _weights.tolist()[0]
 
-    x1 = [x1 for x1 in range(-3, 3)]
-    x2 = [(w[0] + w[1] * i) / (-w[2]) for i in x1]
-    plt.plot(x1, x2, 'r.-')
+    # x1 = [x1 for x1 in range(-3, 3)]
+    # x2 = [(w[0] + w[1] * i) / (-w[2]) for i in x1]
+    # plt.plot(x1, x2, 'r.-')
 
     # decsion = np.empty()
 
@@ -68,6 +68,11 @@ def plot_data(_data, _weights):
     #         np.append(decsion, [i, y])
     #         # plt.plot(i, y, 'r.-')
     # print(decsion)
+    slope = -(w[0] / w[2]) / (w[0] / w[1])
+    intercept = -w[0] / w[2]
+    y_pred = (slope * _data[:, :1]) + intercept
+    plt.plot(_data[:, :1], y_pred) 
+
     plt.show()
 
 
