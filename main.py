@@ -4,15 +4,6 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import make_classification
 
 
-# Read data from csv file
-def load_data():
-    # get data as arrays
-    loaded_data = pd.read_csv('data.csv', header=None)
-    # convert arrays to matrix
-    data_matrix = np.asmatrix(loaded_data, dtype='float64')
-    return data_matrix
-
-
 def generate_random_data():
     separable = False
     while not separable:
@@ -21,8 +12,6 @@ def generate_random_data():
         red = samples[0][samples[1] == 0]
         blue = samples[0][samples[1] == 1]
         separable = any([red[:, k].max() < blue[:, k].min() or red[:, k].min() > blue[:, k].max() for k in range(2)])
-    # plt.plot(red[:, 0], red[:, 1], 'r.')
-    # plt.plot(blue[:, 0], blue[:, 1], 'b.')
 
     # convert into numpy objects
     red = np.array(red)
@@ -53,21 +42,6 @@ def plot_data(_data, _weights):
 
     w = _weights.tolist()[0]
 
-    # x1 = [x1 for x1 in range(-3, 3)]
-    # x2 = [(w[0] + w[1] * i) / (-w[2]) for i in x1]
-    # plt.plot(x1, x2, 'r.-')
-
-    # decsion = np.empty()
-
-    # Here i am calculating slope and intercept with given three weights
-    # for i in np.linspace(np.amin(_data[:, :1]), np.amax(_data[:, :1])):
-    #     if (w[0] /w[1]) != 0:
-    #         slope = -(w[0] / w[2]) / (w[0] / w[1])
-    #         intercept = -w[0] / w[2]
-    #         y = (slope * i) + intercept
-    #         np.append(decsion, [i, y])
-    #         # plt.plot(i, y, 'r.-')
-    # print(decsion)
     slope = -(w[0] / w[2]) / (w[0] / w[1])
     intercept = -w[0] / w[2]
     y_pred = (slope * _data[:, :1]) + intercept
@@ -88,7 +62,6 @@ def perceptron(_data):
     w = np.zeros(shape=(1, features.shape[1] + 1))
 
     # Iterate 10 times and Update 'w' 
-    # for i in range(10):
     for i in range(40):
         misclassified = 0
         for x, label in zip(features, labels):
@@ -106,6 +79,5 @@ def perceptron(_data):
 
 
 data = generate_random_data()
-# data = load_data()
 weights = perceptron(data)
 plot_data(data, weights)
